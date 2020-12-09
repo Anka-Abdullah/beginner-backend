@@ -1,15 +1,15 @@
+const { getProduct } = require('../model/product')
+const { response } = require('../helper/response')
+
 module.exports = {
-  getProduct: (req, res) => {
-    const data = {
-      data: [
-        {
-          product_id: 1,
-          product_name: 'meja',
-          product_status: 1
-        }
-      ]
+  getProduct: async (req, res) => {
+    try {
+      const result = await getProduct()
+      return response(res, 200, 'success get product', result)
+      // res.status(200).send(result)
+    } catch (error) {
+      return response(res, 400, 'Bad Request', error)
     }
-    res.status(200).send(data)
   },
   postProduct: (req, res) => {
     console.log(req.body)
